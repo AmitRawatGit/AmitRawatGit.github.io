@@ -307,81 +307,66 @@ section .title::after{
 }
 
 /* skills section styling */
-
-.skills .title::after{
+.skills .title::after {
     content: "what i know";
 }
-.skills .skills-content .column{
-    width: calc(50% - 30px);
-}
-.skills .skills-content .left .text{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-.skills .skills-content .left p{
-    text-align: justify;
-}
-.skills .skills-content .left a{
-    display: inline-block;
-    background: crimson;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 8px 16px;
-    margin-top: 20px;
-    border-radius: 6px;
-    border: 2px solid crimson;
-    transition: all 0.3s ease;
-}
-.skills .skills-content .left a:hover{
-    color: crimson;
-    background: none;
-}
-.skills .skills-content .right .bars{
-    margin-bottom: 15px;
-}
-.skills .skills-content .right .info{
+
+.skills .skills-content .carousel {
     display: flex;
-    margin-bottom: 5px;
-    align-items: center;
-    justify-content: space-between;
-}
-.skills .skills-content .right span{
-    font-weight: 500;
-    font-size: 18px;
-}
-.skills .skills-content .right .line{
-    height: 5px;
-    width: 100%;
-    background: lightgrey;
-    position: relative;
-}
-.skills .skills-content .right .line::before{
-    content: "";
-    position: absolute;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: crimson;
-}
-.skills-content .right .html::before{
-    width: 70%;
-}
-.skills-content .right .css::before{
-    width: 60%;
-}
-.skills-content .right .js::before{
-    width: 50%;
-}
-.skills-content .right .php::before{
-    width: 50%;
-}
-.skills-content .right .mysql::before{
-    width: 60%;
+    overflow: hidden;
 }
 
-/* teams section styling */
+.skills .skills-content .card {
+    background: #fff; /* White background for cards */
+    border-radius: 6px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-right: 20px; /* Space between cards */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+}
+
+.skills .skills-content .card img {
+    height: 80px; /* Set a fixed height if needed */
+    width: 80px; /* Set a fixed width if needed */
+    object-fit: contain; /* Ensure the logo is not distorted */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+.skills .skills-content .card .info {
+    color: #000; /* Black text color */
+}
+
+.skills .skills-content .card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.skills .skills-content .card p {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Optional: Adjust carousel for mobile view */
+@media (max-width: 600px) {
+    .skills .skills-content .carousel {
+        margin: 0 auto; /* Center carousel on smaller screens */
+    }
+}
+
+
+/* Owl Carousel styling */
+.owl-carousel .owl-nav, .owl-carousel .owl-dots {
+    display: none; /* Hide navigation dots and arrows */
+}
+
+
+/* projects section styling */
 .teams .title::after{
     content: "have worked on";
 }
@@ -415,8 +400,6 @@ section .title::after{
     height: 150px;
     width: 150px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 5px solid crimson;
     transition: all 0.3s ease;
 }
 .teams .carousel .card:hover img{
