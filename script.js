@@ -1,89 +1,57 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const navbar = document.querySelector('.navbar');
-    const scrollUpBtn = document.querySelector('.scroll-up-btn');
-    const menuBtn = document.querySelector('.menu-btn');
-    const menu = document.querySelector('.navbar .menu');
-    const menuLinks = document.querySelectorAll('.navbar .menu li a');
+/*===== MENU SHOW =====*/ 
+const showMenu = (toggleId, navId) =>{
+    const toggle = document.getElementById(toggleId),
+    nav = document.getElementById(navId)
 
-    // Sticky navbar and scroll-up button visibility
-    window.addEventListener('scroll', function () {
-        navbar.classList.toggle("sticky", window.scrollY > 20);
-        scrollUpBtn.classList.toggle("show", window.scrollY > 500);
-    });
+    if(toggle && nav){
+        toggle.addEventListener('click', ()=>{
+            nav.classList.toggle('show')
+        })
+    }
+}
+showMenu('nav-toggle','nav-menu')
 
-    // Scroll-up button click event
-    scrollUpBtn.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+/*==================== REMOVE MENU MOBILE ====================*/
+const navLink = document.querySelectorAll('.nav__link')
 
-    // Smooth scroll behavior for menu links
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            document.documentElement.style.scrollBehavior = 'smooth';
-        });
-    });
+function linkAction(){
+    const navMenu = document.getElementById('nav-menu')
+    // When we click on each nav__link, we remove the show-menu class
+    navMenu.classList.remove('show')
+}
+navLink.forEach(n => n.addEventListener('click', linkAction))
 
-    // Toggle menu/navbar script
-    menuBtn.addEventListener('click', function () {
-        menu.classList.toggle("active");
-        menuBtn.querySelector('i').classList.toggle("active");
-    });
+/*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
+const sections = document.querySelectorAll('section[id]')
 
-    // Typing text animation script
-    new Typed(".typing", {
-        strings: ["Data Scientist", "Data Analyst", "Python Developer"],
-        typeSpeed: 100,
-        backSpeed: 60,
-        loop: true
-    });
+const scrollActive = () =>{
+    const scrollDown = window.scrollY
 
-    new Typed(".typing-2", {
-        strings: ["Data Scientist", "Data Analyst", "Python Developer"],
-        typeSpeed: 100,
-        backSpeed: 60,
-        loop: true
-    });
+  sections.forEach(current =>{
+        const sectionHeight = current.offsetHeight,
+              sectionTop = current.offsetTop - 58,
+              sectionId = current.getAttribute('id'),
+              sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+        
+        if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+            sectionsClass.classList.add('active-link')
+        }else{
+            sectionsClass.classList.remove('active-link')
+        }                                                    
+    })
+}
+window.addEventListener('scroll', scrollActive)
 
-    // Owl carousel initialization
-    $('.carousel').owlCarousel({
-        margin: 20,
-        loop: true,
-        autoplay: true,
-        autoplayTimeout: 2000,
-        autoplayHoverPause: true,
-        responsive: {
-            0: {
-                items: 1,
-                nav: false
-            },
-            600: {
-                items: 2,
-                nav: false
-            },
-            1000: {
-                items: 3,
-                nav: false
-            }
-        }
-    });
-
-    // Resume download button event
-    document.getElementById('downloadButton').addEventListener('click', function () {
-        const a = document.createElement('a');
-        a.href = 'documents/Amit_Rawat.pdf'; // Update with actual path
-        a.download = 'Amit Rawat.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    });
-
-    // Set current year
-    document.getElementById('year').innerText = new Date().getFullYear();
+/*===== SCROLL REVEAL ANIMATION =====*/
+const sr = ScrollReveal({
+    origin: 'top',
+    distance: '60px',
+    duration: 2000,
+    delay: 200,
+//     reset: true
 });
 
-// Form validation and reset
-function validateForm(event) {
-    event.preventDefault();
-    document.getElementById('contactForm').reset();
-    return true;
-}
+sr.reveal('.home__data, .about__img, .skills__subtitle, .skills__text',{}); 
+sr.reveal('.home__img, .about__subtitle, .about__text, .skills__img',{delay: 400}); 
+sr.reveal('.home__social-icon',{ interval: 200}); 
+sr.reveal('.skills__data, .work__img, .contact__input',{interval: 200}); 
