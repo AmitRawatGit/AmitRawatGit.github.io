@@ -1,57 +1,94 @@
-/*===== MENU SHOW =====*/ 
-const showMenu = (toggleId, navId) =>{
-    const toggle = document.getElementById(toggleId),
-    nav = document.getElementById(navId)
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Mobile Menu Open/Close Toggle Action
+    const toggleBtn = document.getElementById("nav-toggle");
+    const menuPanel = document.getElementById("nav-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
-    if(toggle && nav){
-        toggle.addEventListener('click', ()=>{
-            nav.classList.toggle('show')
-        })
+    if (toggleBtn && menuPanel) {
+        toggleBtn.addEventListener("click", () => {
+            menuPanel.classList.toggle("hidden");
+        });
+
+        // Close panel when choosing an option link on mobile
+        mobileLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                menuPanel.classList.add("hidden");
+            });
+        });
     }
-}
-showMenu('nav-toggle','nav-menu')
 
-/*==================== REMOVE MENU MOBILE ====================*/
-const navLink = document.querySelectorAll('.nav__link')
+    // 2. Active Section Spy (Navigation Highlighting)
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-function linkAction(){
-    const navMenu = document.getElementById('nav-menu')
-    // When we click on each nav__link, we remove the show-menu class
-    navMenu.classList.remove('show')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
+    function scrollSpy() {
+        const scrollY = window.scrollY;
 
-/*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
-const sections = document.querySelectorAll('section[id]')
+        sections.forEach(current => {
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - 80; // offset header height
+            const sectionId = current.getAttribute("id");
+            const correspondingLink = document.querySelector(`.nav-link[href*="${sectionId}"]`);
 
-const scrollActive = () =>{
-    const scrollDown = window.scrollY
+            if (correspondingLink) {
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLinks.forEach(link => link.classList.remove("active-link"));
+                    correspondingLink.classList.add("active-link");
+                } else {
+                    correspondingLink.classList.remove("active-link");
+                }
+            }
+        });
+    }
+    window.addEventListener("scroll", scrollSpy);
 
-  sections.forEach(current =>{
-        const sectionHeight = current.offsetHeight,
-              sectionTop = current.offsetTop - 58,
-              sectionId = current.getAttribute('id'),
-              sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
-        
-        if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
-            sectionsClass.classList.add('active-link')
-        }else{
-            sectionsClass.classList.remove('active-link')
-        }                                                    
-    })
-}
-window.addEventListener('scroll', scrollActive)
+    // 3. Lightweight Reveal Animation System using Intersection Observer
+    const revealElements = document.querySelectorAll(".reveal");
+    
+    if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                    observer.unobserve(entry.target); // Trigger animation once
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
-/*===== SCROLL REVEAL ANIMATION =====*/
-const sr = ScrollReveal({
-    origin: 'top',
-    distance: '60px',
-    duration: 2000,
-    delay: 200,
-//     reset: true
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        // Fallback for older legacy browsers
+        revealElements.forEach(el => el.classList.add("active"));
+    }
+
+    // 4. Clean Contact Form Submission Logic
+    const contactForm = document.getElementById("contactForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    if (submitBtn && contactForm) {
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            
+            // Perform form validation
+            const nameInput = document.getElementById("name");
+            const emailInput = document.getElementById("email");
+            const messageInput = document.getElementById("message");
+
+            if (nameInput.value.trim() !== "" && emailInput.value.trim() !== "" && messageInput.value.trim() !== "") {
+                // Actions can be executed here prior to reset (e.g. AJAX/Fetch post requests)
+                contactForm.reset();
+            } else {
+                alert("Please fill in all standard fields.");
+            }
+        });
+    }
+
+    // 5. Update Year automatically
+    const yearSpan = document.getElementById("currentYear");
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
 });
-
-sr.reveal('.home__data, .about__img, .skills__subtitle, .skills__text',{}); 
-sr.reveal('.home__img, .about__subtitle, .about__text, .skills__img',{delay: 400}); 
-sr.reveal('.home__social-icon',{ interval: 200}); 
-sr.reveal('.skills__data, .work__img, .contact__input',{interval: 200}); 
