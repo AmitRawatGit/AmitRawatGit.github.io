@@ -1,414 +1,449 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="scss_styles.scss">
-
-    <!-- =====BOX ICONS===== -->
-    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        xintegrity="sha512-Fo3rlrZj/k7ujl/hTz4qUaL8F/0oG9r3LzE1p4P3J3LpD5f5z/v5J8sR/6o5xW7p5Kz8T9+r9yT6E7G2/bYw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Amit Rawat Portfolio</title>
-    <style>
-        /* Use the Inter font for a clean, modern look */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-            /* Light gray background */
-            color: #334155;
-            /* Dark text for contrast */
+    <!-- Preconnect to external domains for faster DNS lookups -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Unified Font Loading (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icon Packs -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
+    
+    <!-- Tailwind CSS (for modern grid structures and utility classes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7ff',
+                            100: '#ebf0ff',
+                            500: '#4f46e5', /* Indigo primary */
+                            600: '#4338ca',
+                            900: '#1e1b4b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
         }
-    </style>
+    </script>
 </head>
 
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans">
     <!--===== HEADER =====-->
-    <header class="l-header">
-        <nav class="nav bd-grid items-center justify-between">
-            <div>
-                <a href="/" class="flex items-center gap-2">
-                    <img src="./img/logo.png" alt="Your Brand" style="width: 170px;height: 60px;" />
-            </div>
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/80 transition-all duration-300" id="header">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#home" class="flex items-center gap-2">
+                <img src="./img/logo.png" alt="Your Brand" class="h-10 w-auto object-contain" />
+            </a>
 
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                    <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                    <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
-                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-500 transition-colors duration-200">Home</a></li>
+                    <li><a href="#about" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-500 transition-colors duration-200">About</a></li>
+                    <li><a href="#skills" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-500 transition-colors duration-200">Skills</a></li>
+                    <li><a href="#projects" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-500 transition-colors duration-200">Projects</a></li>
+                    <li><a href="#contact" class="nav-link text-sm font-medium text-slate-600 hover:text-brand-500 transition-colors duration-200">Contact</a></li>
                 </ul>
             </div>
 
-            <div class="nav__toggle" id="nav-toggle">
-                <i class='bx bx-menu'></i>
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="nav-toggle" class="text-slate-700 hover:text-brand-500 focus:outline-none p-2" aria-label="Toggle Menu">
+                    <i class='bx bx-menu text-2xl'></i>
+                </button>
             </div>
         </nav>
+
+        <!-- Mobile Menu Panel -->
+        <div id="nav-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-3 shadow-lg">
+            <a href="#home" class="mobile-nav-link block text-base font-medium text-slate-700 hover:text-brand-500 transition-colors py-2">Home</a>
+            <a href="#about" class="mobile-nav-link block text-base font-medium text-slate-700 hover:text-brand-500 transition-colors py-2">About</a>
+            <a href="#skills" class="mobile-nav-link block text-base font-medium text-slate-700 hover:text-brand-500 transition-colors py-2">Skills</a>
+            <a href="#projects" class="mobile-nav-link block text-base font-medium text-slate-700 hover:text-brand-500 transition-colors py-2">Projects</a>
+            <a href="#contact" class="mobile-nav-link block text-base font-medium text-slate-700 hover:text-brand-500 transition-colors py-2">Contact</a>
+        </div>
     </header>
 
-    <main class="l-main">
+    <main class="pt-16">
         <!--===== HOME =====-->
-        <section class="home bd-grid" id="home">
-            <div class="home__data">
-                <h1 class="home__title">Hi,<br>I'am <span class="home__title-color">Amit Rawat</span><br> Python & Data
-                    <br> Enthusiast
-                </h1>
+        <section id="home" class="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 md:py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <div class="space-y-6 reveal">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 border border-indigo-100">
+                        Available for Projects
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        Hi,<br>I'm <span class="text-brand-500">Amit Rawat</span><br>
+                        <span class="text-slate-700 font-bold text-3xl sm:text-4xl lg:text-5xl">Python & Data Enthusiast</span>
+                    </h1>
+                    <p class="text-slate-600 max-w-lg leading-relaxed">
+                        I build performance-driven web solutions, optimize data pipelines, and design functional, beautiful architectures.
+                    </p>
 
-                <a href="#" class="button">Contact</a>
-            </div>
+                    <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                        <a href="#contact" class="w-full sm:w-auto px-8 py-3 text-center font-semibold text-white bg-brand-500 hover:bg-brand-600 rounded-xl transition duration-300 shadow-md shadow-brand-500/10">
+                            Contact Me
+                        </a>
+                        <div class="flex items-center gap-4">
+                            <a href="https://www.linkedin.com/in/amitcoder/" target="_blank" rel="noopener" aria-label="LinkedIn Profile" class="p-3 text-slate-600 hover:text-brand-500 bg-white hover:bg-slate-100 rounded-xl border border-slate-200 transition-all duration-300">
+                                <i class='bx bxl-linkedin text-xl'></i>
+                            </a>
+                            <a href="https://github.com/AmitRawatGit" target="_blank" rel="noopener" aria-label="GitHub Profile" class="p-3 text-slate-600 hover:text-brand-500 bg-white hover:bg-slate-100 rounded-xl border border-slate-200 transition-all duration-300">
+                                <i class='bx bxl-github text-xl'></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="home__social">
-                <a href="https://www.linkedin.com/in/amitcoder/" aria-label="LinkedIn Profile"
-                    data-tip="LinkedIn Profile" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
-                <!-- <a href="" class="home__social-icon"><i class='bx bxl-behance' ></i></a> -->
-                <a href="https://github.com/AmitRawatGit" class="home__social-icon"><i class='bx bxl-github'></i></a>
-            </div>
+                <div class="flex justify-center items-center reveal delay-200">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+                        <div class="absolute inset-0 bg-brand-500/10 rounded-full blur-2xl animate-pulse"></div>
+                        <svg class="w-full h-full drop-shadow-xl relative z-10" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0" mask-type="alpha">
+                                <path fill="#4f46e5" d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
+                            </mask>
+                            <g mask="url(#mask0)">
+                                <path fill="#4f46e5" d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
+                                <image x="50" y="60" width="380" height="380" href="img/perfil.png" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
 
-            <div class="home__img">
-                <svg class="home__blob" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <mask id="mask0" mask-type="alpha">
-                        <path
-                            d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
-                    </mask>
-                    <g mask="url(#mask0)">
-                        <path
-                            d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
-                        <image class="home__blob-img" x="50" y="60" href="img/perfil.png" />
-                    </g>
-                </svg>
             </div>
         </section>
 
         <!--===== ABOUT =====-->
-        <section class="about section " id="about">
-            <h2 class="section-title">About</h2>
-
-            <div class="about__container bd-grid">
-                <div class="about__img">
-                    <img src="img/about.jpg" alt="">
+        <section id="about" class="py-20 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl relative inline-block pb-3">
+                        About Me
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-brand-500 rounded"></span>
+                    </h2>
                 </div>
 
-                <div>
-                    <p class="about__text">Skilled Python Developer having real world projects experience in Python
-                        Development, API
-                        integration, and software testing. Proficient in Python, Django, SQL, and Power BI, with a
-                        strong
-                        foundation in data analysis and manual testing. Proven ability to deliver scalable solutions and
-                        improve
-                        system performance in Agile teams.</p>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-5 flex justify-center reveal">
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-brand-500/10 rounded-2xl rotate-3 scale-105 transition-transform duration-300 group-hover:rotate-0"></div>
+                            <img src="img/about.jpg" alt="Amit Rawat" class="relative z-10 w-64 md:w-80 h-auto rounded-2xl object-cover shadow-lg border border-slate-100">
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-7 space-y-6 reveal delay-200">
+                        <h3 class="text-2xl font-bold text-slate-900">Python Developer &amp; Data Analyst</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            I am a skilled Python Developer with real-world experience in building robust backends, API integrations, and technical quality assurance. Proficient in Python, Django, SQL, and Power BI, I bridge the gap between software performance and data visualization.
+                        </p>
+                        <p class="text-slate-600 leading-relaxed">
+                            Working within Agile teams, I focus on delivering clean, scalable systems, fixing critical bottlenecks, and crafting dashboards that translate visual datasets into actionable business perspectives.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!--===== SKILLS =====-->
-        <section class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">My Skills</h2>
-                <p class="mt-4 text-xl text-gray-500">A showcase of my technical skills and abilities.</p>
-            </div>
-
-            <!--
-            Flexbox container for all skill cards.
-            - `flex`: Makes this a flex container.
-            - `flex-wrap`: Allows items to wrap to the next line on smaller screens.
-            - `justify-center`: Horizontally centers the items when they don't fill the full width.
-            - `gap-6`: Adds a consistent space between each skill card.
-        -->
-            <div class="mt-10 flex flex-wrap justify-center gap-6">
-
-                <!-- Development Skills Group -->
-                <div class="p-6 rounded-xl shadow-lg bg-gray-100 flex-1 min-w-[250px] max-w-sm">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800 text-center">Development</h3>
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-python text-4xl text-blue-500"></i>
-                            <p class="mt-2 text-md font-semibold">Python</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i><img src="img/django.png" alt="ChatGPT" class="w-8 h-8 object-contain" /></i>
-                            <p class="mt-2 text-md font-semibold">Django</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-html5 text-4xl text-orange-500"></i>
-                            <p class="mt-2 text-md font-semibold">HTML</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-css3-alt text-4xl text-blue-500"></i>
-                            <p class="mt-2 text-md font-semibold">CSS</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-js-square text-4xl text-yellow-400"></i>
-                            <p class="mt-2 text-md font-semibold">JavaScript</p>
-                        </div>
-
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-c text-4xl text-gray-600"></i>
-                            <p class="mt-2 text-md font-semibold">C</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-java text-4xl text-red-600"></i>
-                            <p class="mt-2 text-md font-semibold">Java</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-database text-4xl text-indigo-700"></i>
-                            <p class="mt-2 text-md font-semibold">PostgreSQL</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i><img src="img/api.png" alt="ChatGPT" class="w-8 h-8 object-contain" /></i>
-                            <p class="mt-2 text-md font-semibold">API</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-bug text-4xl text-red-600"></i>
-                            <p class="mt-2 text-md font-semibold">Debugging</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-wrench text-4xl text-gray-600"></i>
-                            <p class="mt-2 text-md font-semibold">Bug Fixing</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-clipboard-check text-4xl text-green-600"></i>
-                            <p class="mt-2 text-md font-semibold">Manual Testing</p>
-                        </div>
-                    </div>
+        <section id="skills" class="py-20 bg-slate-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl relative inline-block pb-3">
+                        My Skills
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-brand-500 rounded"></span>
+                    </h2>
+                    <p class="mt-4 text-slate-500 max-w-md mx-auto">A compiled summary of my engineering expertise and diagnostic tools.</p>
                 </div>
 
-                <!-- Data & Tools Skills Group -->
-                <div class="p-6 rounded-xl shadow-lg bg-gray-100 flex-1 min-w-[250px] max-w-sm">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800 text-center">Data & Tools</h3>
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-chart-line text-4xl text-cyan-600"></i>
-                            <p class="mt-2 text-md font-semibold">Data Analysis</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Development Skills Group -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6 reveal">
+                        <h3 class="text-xl font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+                            <i class='bx bx-code-alt text-brand-500 text-2xl'></i> Software Development
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <!-- Python -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fab fa-python text-3xl text-[#3776AB] group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">Python</span>
+                            </div>
+                            <!-- Django -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <img src="img/django.png" alt="Django" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+                                <span class="mt-2 text-sm font-medium text-slate-700">Django</span>
+                            </div>
+                            <!-- SQL / PostgreSQL -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fas fa-database text-3xl text-indigo-600 group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">PostgreSQL</span>
+                            </div>
+                            <!-- JS -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fab fa-js-square text-3xl text-[#F7DF1E] group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">JavaScript</span>
+                            </div>
+                            <!-- HTML5 -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fab fa-html5 text-3xl text-[#E34F26] group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">HTML5</span>
+                            </div>
+                            <!-- API -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <img src="img/api.png" alt="API" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+                                <span class="mt-2 text-sm font-medium text-slate-700">REST APIs</span>
+                            </div>
                         </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-chart-pie text-4xl text-emerald-500"></i>
-                            <p class="mt-2 text-md font-semibold">Data Visualisation</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-filter text-4xl text-amber-500"></i>
-                            <p class="mt-2 text-md font-semibold">Data Cleaning</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-github text-4xl text-gray-800"></i>
-                            <p class="mt-2 text-md font-semibold">GitHub</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-terminal text-4xl text-gray-700"></i>
-                            <p class="mt-2 text-md font-semibold">VS Code</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-paper-plane text-4xl text-red-500"></i>
-                            <p class="mt-2 text-md font-semibold">Postman</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fab fa-jira text-4xl text-blue-700"></i>
-                            <p class="mt-2 text-md font-semibold">JIRA</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class="fas fa-robot text-4xl text-purple-600"></i>
-                            <p class="mt-2 text-md font-semibold">AI Tools</p>
-                        </div>
-                        <div
-                            class="bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-                            <i class=""><img src="img/chatgpt.png" alt="ChatGPT" class="w-8 h-8 object-contain" /></i>
-                            <p class="mt-2 text-md font-semibold">ChatGPT</p>
+                    </div>
+
+                    <!-- Data & Tools Skills Group -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6 reveal delay-200">
+                        <h3 class="text-xl font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+                            <i class='bx bx-analyse text-brand-500 text-2xl'></i> Data &amp; Platform Tools
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <!-- Data Analysis -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fas fa-chart-line text-3xl text-cyan-600 group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">Data Analysis</span>
+                            </div>
+                            <!-- Power BI -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fas fa-chart-pie text-3xl text-emerald-500 group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">Power BI</span>
+                            </div>
+                            <!-- GitHub -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fab fa-github text-3xl text-slate-800 group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">GitHub</span>
+                            </div>
+                            <!-- Postman -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fas fa-paper-plane text-3xl text-orange-500 group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">Postman</span>
+                            </div>
+                            <!-- JIRA -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <i class="fab fa-jira text-3xl text-blue-600 group-hover:scale-110 transition-transform"></i>
+                                <span class="mt-2 text-sm font-medium text-slate-700">JIRA</span>
+                            </div>
+                            <!-- ChatGPT -->
+                            <div class="bg-slate-50 hover:bg-white p-4 rounded-xl border border-slate-100 hover:border-brand-500/30 transition-all duration-300 flex flex-col items-center justify-center text-center group">
+                                <img src="img/chatgpt.png" alt="ChatGPT" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+                                <span class="mt-2 text-sm font-medium text-slate-700">AI Integration</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!--===== Projects =====-->
-        <section class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-
-            <section class="work section" id="projects">
-
-                <div class="container mx-auto px-4 py-12">
-                    <h1 class="text-4xl md:text-5xl font-bold text-center mb-12 text-dark">Projects</h1>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                        <!-- Project Card 1: Demand Planner AI -->
-                        <div
-                            class="bg-gray-100 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-transform transform hover:scale-105">
-                            <div>
-                                <!-- Project Image/Placeholder -->
-                                <div class="bg-gray-200 rounded-2xl p-6 mb-6">
-                                    <div class="aspect-video flex items-center justify-center">
-                                        <img src="img/dpai.jpg" alt="Demand Planner AI"
-                                            class="w-full h-full object-cover rounded-2xl">
-                                    </div>
-                                </div>
-
-                                <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">Demand Planner
-                                    Artificial
-                                    Intelligence (Python, Django, SQL)</h3>
-
-                                <ul class="text-sm md:text-base text-gray-600 space-y-2 mb-4">
-                                    <li>• Built a Django-based solution that analyzed historical sales data to forecast
-                                        future trends using predictive algorithms.</li>
-                                    <li>• Integrated automated data processing workflows with scheduled cron jobs and
-                                        API
-                                        endpoints.</li>
-                                    <li>• Conducted performance optimization and debugging, significantly improving data
-                                        throughput and system stability.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Project Card 2: Image Classification -->
-                        <div
-                            class="bg-gray-100 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-transform transform hover:scale-105">
-                            <div>
-                                <div class="bg-gray-200 rounded-2xl p-6 mb-6">
-                                    <div class="aspect-video flex items-center justify-center">
-                                        <img src="img/image_classification.jpg" alt="Demand Planner AI"
-                                            class="w-full h-full object-cover rounded-2xl">
-                                    </div>
-                                </div>
-
-                                <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">Image Classification
-                                    using CNN ( Python, Data Analysis)</h3>
-
-                                <!-- Project Description -->
-                                <ul class="text-sm md:text-base text-gray-600 space-y-2 mb-4">
-                                    <li>• Trained a convolutional neural network (CNN) to classify images of individuals
-                                        with or without eyeglasses.</li>
-                                    <li>• Used image augmentation techniques to improve generalization and model
-                                        robustness against real-world variations.</li>
-                                    <li>• Achieved high classification accuracy and interpreted results through
-                                        confusion matrices and precision-recall metrics.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Project Card 3: Insurance price -->
-                        <div
-                            class="bg-gray-100 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-transform transform hover:scale-105">
-                            <div>
-                                <div class="bg-gray-200 rounded-2xl p-6 mb-6">
-                                    <div class="aspect-video flex items-center justify-center">
-                                        <img src="img/insurance_prize.jpg" alt="Demand Planner AI"
-                                            class="w-full h-full object-cover rounded-2xl">
-                                    </div>
-                                </div>
-
-                                <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">Prediction of Insurance
-                                    Price ( Python, Data Analysis)</h3>
-
-                                <ul class="text-sm md:text-base text-gray-600 space-y-2 mb-4">
-                                    <li>• Built a regression model to predict insurance pricing using various
-                                        demographic and health-related features.</li>
-                                    <li>• Visualized data distributions and relationships to identify key drivers
-                                        influencing policy costs.</li>
-                                    <li>• Applied feature engineering techniques and evaluated model performance using
-                                        standard ML metrics.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Project Card 4: Sales Dashboard -->
-                        <div
-                            class="bg-gray-100 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl transition-transform transform hover:scale-105">
-                            <div>
-                                <div class="bg-gray-200 rounded-2xl p-6 mb-6">
-                                    <div class="aspect-video flex items-center justify-center">
-                                        <img src="img/sales.png" alt="Demand Planner AI"
-                                            class="w-full h-full object-cover rounded-2xl">
-                                    </div>
-                                </div>
-
-                                <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">Ecommerce Sales
-                                    Dashboard (Data Analysis, Power BI)</h3>
-
-                                <ul class="text-sm md:text-base text-gray-600 space-y-2 mb-4">
-                                    <li>• Developed a dynamic Power BI dashboard to track eCommerce KPIs including total
-                                        revenue, profit margins, and category-wise sales.</li>
-                                    <li>• Built and optimized DAX measures and calculated columns to enable detailed
-                                        insights and trend tracking.</li>
-                                    <li>• Implemented slicers, filters, and drill-down capabilities for flexible data
-                                        exploration and user interaction.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-
-                    </div>
+        <!--===== PROJECTS =====-->
+        <section id="projects" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl relative inline-block pb-3">
+                        Projects
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-brand-500 rounded"></span>
+                    </h2>
                 </div>
 
-            </section>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project Card 1: Demand Planner AI -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 reveal">
+                        <div class="aspect-video w-full overflow-hidden bg-slate-200 relative">
+                            <img src="img/dpai.jpg" alt="Demand Planner AI" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div class="p-6 md:p-8 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Python</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Django</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">SQL</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-3">Demand Planner AI</h3>
+                                <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Built a predictive forecasting system that processes historical point-of-sale data to predict demand dynamics.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Automated standard ingest routines via scheduled cron tasks and microservices.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Enhanced general query speeds, ensuring stable and reproducible data operations.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Image Classification -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 reveal delay-200">
+                        <div class="aspect-video w-full overflow-hidden bg-slate-200 relative">
+                            <img src="img/image_classification.jpg" alt="Image Classification" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div class="p-6 md:p-8 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Deep Learning</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">CNN</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Data Analysis</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-3">Image Classification using CNN</h3>
+                                <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Trained a CNN models for binary facial accessory categorization tasks.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Configured data augmentation matrices to maintain consistent inference across varying light setups.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Evaluated performance criteria systematically through confusion matrices and recall metrics.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3: Insurance Price Prediction -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 reveal">
+                        <div class="aspect-video w-full overflow-hidden bg-slate-200 relative">
+                            <img src="img/insurance_prize.jpg" alt="Insurance Price Prediction" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div class="p-6 md:p-8 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Regression</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Machine Learning</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">EDA</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-3">Insurance Price Prediction</h3>
+                                <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Engineered regression pipelines to forecast actuarial fee scales using demographical datasets.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Generated visual distributions mapping relationships to define key premium-cost drivers.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Successfully integrated feature modifications to optimize overall forecasting accuracy.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 4: Ecommerce Sales Dashboard -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300 reveal delay-200">
+                        <div class="aspect-video w-full overflow-hidden bg-slate-200 relative">
+                            <img src="img/sales.png" alt="Ecommerce Sales Dashboard" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        </div>
+                        <div class="p-6 md:p-8 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Power BI</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">DAX</span>
+                                    <span class="px-2.5 py-1 bg-brand-50 text-brand-500 rounded-md text-xs font-semibold">Data Visualization</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-3">Ecommerce Sales Dashboard</h3>
+                                <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Constructed visual models displaying core revenue, gross profit, and category segments.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Composed optimized DAX functions to establish clean, responsive metrics tracking.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-brand-500 mt-1">&#8226;</span>
+                                        <span>Arranged interactive parameters allowing granular insight filtering across sales vectors.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!--===== CONTACT =====-->
-        <section class="contact section" id="contact">
-            <h2 class="section-title">Contact</h2>
+        <section id="contact" class="py-20 bg-slate-50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl relative inline-block pb-3">
+                        Contact
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-brand-500 rounded"></span>
+                    </h2>
+                    <p class="mt-4 text-slate-500">I'd love to hear from you. Feel free to reach out via the form below.</p>
+                </div>
 
-            <div class="contact__container bd-grid">
-                <form action="" class="contact__form" id="contactForm">
-                    <input type="text" placeholder="Name" class="contact__input" id="name">
-                    <input type="email" placeholder="Email" class="contact__input" id="email">
-                    <textarea id="message" cols="0" rows="10" class="contact__input"></textarea>
-                    <input type="button" value="Submit" class="contact__button button" id="submitBtn">
-                </form>
+                <div class="bg-white p-8 md:p-12 rounded-2xl border border-slate-200 shadow-sm max-w-xl mx-auto reveal">
+                    <form action="#" class="space-y-6" id="contactForm">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Name</label>
+                            <input type="text" id="name" placeholder="John Doe" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all outline-none text-slate-800">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                            <input type="email" id="email" placeholder="john@example.com" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all outline-none text-slate-800">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
+                            <textarea id="message" rows="5" placeholder="How can I help you?" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all outline-none text-slate-800 resize-none"></textarea>
+                        </div>
+                        <button type="button" id="submitBtn" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
-
-        <script>
-            // Get elements
-            const form = document.getElementById("contactForm");
-            const submitBtn = document.getElementById("submitBtn");
-
-            // On button click, clear fields
-            submitBtn.addEventListener("click", () => {
-                form.reset();
-            });
-        </script>
-
     </main>
 
     <!--===== FOOTER =====-->
-    <footer class="footer">
-        <p class="footer__title">Amit Rawat</p>
-        <div class="footer__social">
-            <a href="" class="footer__icon"><i class='bx bxl-facebook'></i></a>
-            <a href="" class="footer__icon"><i class='bx bxl-instagram'></i></a>
-            <a href="" class="footer__icon"><i class='bx bxl-twitter'></i></a>
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p class="text-xl font-bold tracking-tight">Amit Rawat</p>
+            
+            <div class="flex items-center gap-6">
+                <a href="https://www.linkedin.com/in/amitcoder/" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-slate-400 hover:text-white text-xl transition-colors">
+                    <i class='bx bxl-linkedin'></i>
+                </a>
+                <a href="https://github.com/AmitRawatGit" target="_blank" rel="noopener" aria-label="GitHub" class="text-slate-400 hover:text-white text-xl transition-colors">
+                    <i class='bx bxl-github'></i>
+                </a>
+            </div>
+
+            <p class="text-xs text-slate-400">&copy; <span id="currentYear"></span> Amit Rawat. All rights reserved.</p>
         </div>
-        <p class="footer__copy">&#169; . All rigths reserved</p>
     </footer>
-
-
-    <!--===== SCROLL REVEAL =====-->
-    <script src="https://unpkg.com/scrollreveal"></script>
 
     <!--===== MAIN JS =====-->
     <script src="script.js"></script>
